@@ -1,12 +1,28 @@
-import { Mail, Lock, Eye, Sparkles, ShieldCheck, Code2 } from "lucide-react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  Mail,
+  Lock,
+  Eye,
+  Sparkles,
+  ShieldCheck,
+  Code2,
+} from "lucide-react";
 
 function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleLogin = () => {
+    console.log("Email:", email);
+    console.log("Password:", password);
+  };
+
   return (
     <div className="min-h-screen bg-[#F5EFE6] flex">
-
       {/* Left Section */}
       <div className="hidden lg:flex w-1/2 bg-[#E8DCCB] flex-col justify-center px-20">
-
         <div className="bg-white w-20 h-20 rounded-3xl flex items-center justify-center shadow-lg">
           <Code2 size={40} className="text-[#8B5E3C]" />
         </div>
@@ -18,13 +34,12 @@ function Login() {
         </h1>
 
         <p className="text-xl text-[#6D5B4D] mt-8 leading-9">
-          Improve your code quality using Artificial Intelligence.
-          Detect bugs, security issues, performance problems and
-          receive professional suggestions instantly.
+          Improve your code quality using Artificial Intelligence. Detect bugs,
+          security issues, performance problems and receive professional
+          suggestions instantly.
         </p>
 
         <div className="mt-14 space-y-6">
-
           <div className="flex items-center gap-4">
             <Sparkles className="text-[#8B5E3C]" />
             <span className="text-lg text-[#4B3425]">
@@ -45,17 +60,12 @@ function Login() {
               Supports Multiple Languages
             </span>
           </div>
-
         </div>
-
       </div>
 
       {/* Right Section */}
-
       <div className="flex-1 flex justify-center items-center px-6">
-
         <div className="bg-white w-[430px] rounded-3xl shadow-2xl p-10">
-
           <h2 className="text-4xl font-serif text-[#4B3425] text-center">
             Welcome Back
           </h2>
@@ -64,80 +74,70 @@ function Login() {
             Login to continue
           </p>
 
+          {/* Email */}
           <div className="mt-10">
-
-            <label className="font-medium text-[#4B3425]">
-              Email
-            </label>
+            <label className="font-medium text-[#4B3425]">Email</label>
 
             <div className="flex items-center border rounded-xl px-4 mt-2">
-
               <Mail className="text-[#8B5E3C]" size={20} />
 
               <input
                 type="email"
                 placeholder="Enter your email"
                 className="w-full p-4 outline-none"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
-
             </div>
-
           </div>
 
+          {/* Password */}
           <div className="mt-6">
-
-            <label className="font-medium text-[#4B3425]">
-              Password
-            </label>
+            <label className="font-medium text-[#4B3425]">Password</label>
 
             <div className="flex items-center border rounded-xl px-4 mt-2">
-
               <Lock className="text-[#8B5E3C]" size={20} />
 
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="Enter your password"
                 className="w-full p-4 outline-none"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
 
               <Eye
                 size={20}
                 className="cursor-pointer text-[#8B5E3C]"
+                onClick={() => setShowPassword(!showPassword)}
               />
-
             </div>
-
           </div>
 
           <div className="flex justify-end mt-3">
-
             <button className="text-[#8B5E3C] text-sm hover:underline">
               Forgot Password?
             </button>
-
           </div>
 
-          <button className="w-full mt-8 bg-[#8B5E3C] text-white py-4 rounded-xl hover:bg-[#6F4527] transition">
-
+          <button
+            onClick={handleLogin}
+            className="w-full mt-8 bg-[#8B5E3C] text-white py-4 rounded-xl hover:bg-[#6F4527] transition"
+          >
             Login
-
           </button>
 
           <p className="text-center mt-8 text-gray-500">
-
-            Don't have an account?
-
-            <span className="text-[#8B5E3C] font-semibold cursor-pointer">
-              {" "}
+            Don't have an account?{" "}
+            <Link
+              to="/signup"
+              className="text-[#8B5E3C] font-semibold hover:underline"
+            >
               Sign Up
-            </span>
-
+            </Link>
           </p>
-
         </div>
-
       </div>
-
     </div>
   );
 }
